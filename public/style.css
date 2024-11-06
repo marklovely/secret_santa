@@ -1,0 +1,125 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 30px;
+    background-color: #f0f8ff;
+    background-image: url('christmas_lights.jpg');
+
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1 {
+    font-size: 3em;
+    color: #B22222; /* Dark red for the holiday theme */
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Adding a shadow to make the title stand out */
+}
+
+h2 {
+    color: #8B0000;
+    font-size: 2em;
+    margin-bottom: 10px;
+    font-family: 'Georgia', serif;
+}
+
+/* Styling for the main container */
+#setup, #reveal {
+    background-color: rgba(255, 255, 255, 0.8); /* Slight opacity for a frosty effect */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Input and button styling */
+textarea, input {
+    width: 90%;
+    max-width: 500px;
+    padding: 12px;
+    border: 2px solid #B22222;
+    border-radius: 10px;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+textarea {
+    height: 150px;
+}
+
+input:focus, textarea:focus {
+    border-color: #FF6347; /* Tomato color on focus */
+    background-color: #f8f8f8;
+}
+
+button {
+    background-color: #32CD32; /* Lime green for buttons */
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #228B22;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Message Area Styling */
+#message, #result {
+    font-size: 1.5em;
+    color: #8B4513; /* Saddle brown */
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Adding festive decorations */
+h1:before {
+    content: '🎄';
+    margin-right: 15px;
+}
+
+h1:after {
+    content: '🎅';
+    margin-left: 15px;
+}
+
+/* Button and input transitions */
+button {
+    margin-top: 15px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    #setup, #reveal {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}
