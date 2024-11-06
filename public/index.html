@@ -12,7 +12,7 @@
     <div id="setup">
         <h2>Enter Names</h2>
         <div id="nameInputs">
-            <!-- Default input box -->
+            <!-- Default input boxes for 5 names -->
             <input type="text" class="nameBox" placeholder="Enter name" />
             <input type="text" class="nameBox" placeholder="Enter name" />
             <input type="text" class="nameBox" placeholder="Enter name" />
@@ -21,6 +21,7 @@
         </div>
         <button onclick="addNameBox()">Add More Names</button><br><br>
         <button onclick="createAssignments()">Generate Secret Santa Assignments</button>
+        <button onclick="resetFields()">Reset</button> <!-- Reset Button -->
         <div id="message"></div>
     </div>
 
@@ -47,6 +48,11 @@
             const nameBoxes = document.querySelectorAll('.nameBox');
             const names = Array.from(nameBoxes).map(input => input.value.trim()).filter(name => name);
 
+            if (names.length < 2) {
+                alert('Please enter at least two names.');
+                return;
+            }
+
             const response = await fetch('/create-assignments', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -63,6 +69,11 @@
                     codesText += `${item.giver}: ${item.code}\n`;
                 });
                 messageElement.innerText = codesText;
+
+                // Hide the input fields and the "Add More Names" button
+                document.getElementById('nameInputs').style.display = 'none';
+                document.querySelector('button:nth-of-type(1)').style.display = 'none'; // Hide "Add More Names" button
+                document.querySelector('button:nth-of-type(2)').style.display = 'none'; // Hide "Generate Secret Santa" button
             } else {
                 messageElement.innerText = data.error;
             }
@@ -79,6 +90,21 @@
             } else {
                 document.getElementById('result').innerText = 'Invalid code. Please try again.';
             }
+        }
+
+        // Reset all fields and results
+        function resetFields() {
+            // Reset the name input boxes
+            const nameInputs = document.querySelectorAll('.nameBox');
+            nameInputs.forEach(input => input.value = '');
+            document.getElementById('message').innerText = ''; // Clear the message
+            document.getElementById('result').innerText = ''; // Clear the result
+            document.getElementById('codeInput').value = ''; // Clear the code input
+
+            // Show the input fields again
+            document.getElementById('nameInputs').style.display = 'block';
+            document.querySelector('button:nth-of-type(1)').style.display = 'inline-block'; // Show "Add More Names" button
+            document.querySelector('button:nth-of-type(2)').style.display = 'inline-block'; // Show "Generate Secret Santa" button
         }
     </script>
 </body>

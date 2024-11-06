@@ -65,6 +65,7 @@ input:focus, textarea:focus {
     background-color: #f8f8f8;
 }
 
+/* Button and input transitions */
 button {
     background-color: #32CD32; /* Lime green for buttons */
     color: white;
@@ -74,6 +75,7 @@ button {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 15px;
 }
 
 button:hover {
@@ -82,6 +84,20 @@ button:hover {
 
 button:active {
     transform: scale(0.95);
+}
+
+/* Reset button styling */
+button:last-child {
+    background-color: #FF6347; /* Tomato color for reset */
+}
+
+button:last-child:hover {
+    background-color: #FF4500;
+}
+
+/* Other button styles */
+button:first-child {
+    background-color: #32CD32;
 }
 
 /* Message Area Styling */
