@@ -1,141 +1,95 @@
-/* Basic Reset */
-* {
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    background-image: url('christmas_lights.jpg');
+    color: #2f4f4f;
     margin: 0;
     padding: 0;
+    text-align: center;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    padding: 30px;
-    background-color: #f0f8ff;
-    background-image: url('christmas_lights.jpg');
-
-    background-size: cover;
-    background-attachment: fixed;
+/* Header */
+header {
+    background-color: #ff6347;
+    color: white;
+    padding: 20px 0;
+    font-size: 2.5em;
 }
 
 h1 {
-    font-size: 3em;
-    color: #B22222; /* Dark red for the holiday theme */
-    margin-bottom: 20px;
-    font-family: 'Georgia', serif;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Adding a shadow to make the title stand out */
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+}
+
+.content {
+    background: linear-gradient(145deg, #ff7f50, #ff4500);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    color: #8B0000;
-    font-size: 2em;
-    margin-bottom: 10px;
-    font-family: 'Georgia', serif;
-}
-
-/* Styling for the main container */
-#setup, #reveal {
-    background-color: rgba(255, 255, 255, 0.8); /* Slight opacity for a frosty effect */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    padding: 20px;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Input and button styling */
-textarea, input {
-    width: 90%;
-    max-width: 500px;
-    padding: 12px;
-    border: 2px solid #B22222;
-    border-radius: 10px;
-    font-size: 1.2em;
-    margin-bottom: 15px;
-    outline: none;
-}
-
-textarea {
-    height: 150px;
-}
-
-input:focus, textarea:focus {
-    border-color: #FF6347; /* Tomato color on focus */
-    background-color: #f8f8f8;
-}
-
-/* Button and input transitions */
-button {
-    background-color: #32CD32; /* Lime green for buttons */
     color: white;
-    padding: 12px 25px;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.button {
+    background-color: #32cd32;
+    color: white;
+    padding: 15px 30px;
+    margin: 10px;
+    border-radius: 25px;
+    text-decoration: none;
     font-size: 1.2em;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 15px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-button:hover {
-    background-color: #228B22;
+.button:hover {
+    background-color: #228b22;
+    transform: scale(1.05);
 }
 
-button:active {
-    transform: scale(0.95);
-}
-
-/* Reset button styling */
-button:last-child {
-    background-color: #FF6347; /* Tomato color for reset */
-}
-
-button:last-child:hover {
-    background-color: #FF4500;
-}
-
-/* Other button styles */
-button:first-child {
-    background-color: #32CD32;
-}
-
-/* Message Area Styling */
-#message, #result {
-    font-size: 1.5em;
-    color: #8B4513; /* Saddle brown */
+.buttons {
     margin-top: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+/* Christmas Decorations */
+footer p {
+    font-size: 1.5em;
     font-weight: bold;
 }
 
-/* Adding festive decorations */
-h1:before {
-    content: '🎄';
-    margin-right: 15px;
-}
-
-h1:after {
-    content: '🎅';
-    margin-left: 15px;
-}
-
-/* Button and input transitions */
-button {
-    margin-top: 15px;
-}
-
-/* Mobile Responsiveness */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-
-    #setup, #reveal {
+    .content {
         width: 90%;
-        margin: 0 auto;
     }
 
-    h1 {
-        font-size: 2em;
+    .button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1em;
     }
 }

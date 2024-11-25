@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lovely's Secret Santa Picker - Generate</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🎄 The Lovely's Secret Santa Picker 🎅</h1>
+
+    <div id="setup">
+        <h2>Enter Names</h2>
+        <div id="nameInputs">
+            <input type="text" class="nameBox" placeholder="Enter name" />
+            <input type="text" class="nameBox" placeholder="Enter name" />
+            <input type="text" class="nameBox" placeholder="Enter name" />
+            <input type="text" class="nameBox" placeholder="Enter name" />
+            <input type="text" class="nameBox" placeholder="Enter name" />
+        </div>
+        <button onclick="addNameBox()">Add More Names</button><br><br>
+        <button onclick="createAssignments()">Generate Secret Santa Assignments</button>
+        <div id="message"></div>
+        <button onclick="resetFields()">Reset</button>
+    </div>
+
+    <!-- New button to go to reveal page -->
+    <div style="margin-top: 20px;">
+        <button onclick="window.location.href='/reveal'">Go to Reveal Page</button>
+    </div>
+
+    <script>
+        function addNameBox() {
+            const nameInputs = document.getElementById("nameInputs");
+            const newInput = document.createElement("input");
+            newInput.type = "text";
+            newInput.className = "nameBox";
+            newInput.placeholder = "Enter name";
+            nameInputs.appendChild(newInput);
+        }
+
+        async function createAssignments() {
+            const nameBoxes = document.querySelectorAll('.nameBox');
+            const names = Array.from(nameBoxes).map(input => input.value.trim()).filter(name => name);
+
+            if (names.length < 2) {
+                alert('Please enter at least two names.');
+                return;
+            }
+
+            const response = await fetch('/create-assignments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ names })
+            });
+
+            const data = await response.json();
+            const messageElement = document.getElementById('message');
+
+            if (response.ok) {
+                let codesText = 'Assignments created! Here are your codes (keep them private):\n';
+                data.codes.forEach(item => {
+                    codesText += `${item.giver}: ${item.code}\n`;
+                });
+                messageElement.innerText = codesText;
+            } else {
+                messageElement.innerText = data.error;
+            }
+        }
+
+        function resetFields() {
+            const nameInputs = document.querySelectorAll('.nameBox');
+            nameInputs.forEach(input => input.value = '');
+            document.getElementById('message').innerText = '';
+        }
+    </script>
+</body>
+</html>

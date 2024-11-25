@@ -7,105 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>🎄 The Lovely's Secret Santa Picker 🎅</h1>
-
-    <div id="setup">
-        <h2>Enter Names</h2>
-        <div id="nameInputs">
-            <!-- Default input boxes for 5 names -->
-            <input type="text" class="nameBox" placeholder="Enter name" />
-            <input type="text" class="nameBox" placeholder="Enter name" />
-            <input type="text" class="nameBox" placeholder="Enter name" />
-            <input type="text" class="nameBox" placeholder="Enter name" />
-            <input type="text" class="nameBox" placeholder="Enter name" />
-        </div>
-        <button onclick="addNameBox()">Add More Names</button><br><br>
-        <button onclick="createAssignments()">Generate Secret Santa Assignments</button>
-        <button onclick="resetFields()">Reset</button> <!-- Reset Button -->
-        <div id="message"></div>
-    </div>
-
-    <div id="reveal">
-        <h2>Retrieve Your Secret Santa</h2>
-        <input type="text" id="codeInput" placeholder="Enter your code">
-        <button onclick="revealAssignment()">Reveal Secret Santa</button>
-        <div id="result"></div>
-    </div>
-
-    <script>
-        // Add input boxes for more names
-        function addNameBox() {
-            const nameInputs = document.getElementById("nameInputs");
-            const newInput = document.createElement("input");
-            newInput.type = "text";
-            newInput.className = "nameBox";
-            newInput.placeholder = "Enter name";
-            nameInputs.appendChild(newInput);
-        }
-
-        // Generate the assignments
-        async function createAssignments() {
-            const nameBoxes = document.querySelectorAll('.nameBox');
-            const names = Array.from(nameBoxes).map(input => input.value.trim()).filter(name => name);
-
-            if (names.length < 2) {
-                alert('Please enter at least two names.');
-                return;
-            }
-
-            const response = await fetch('/create-assignments', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ names })
-            });
-
-            const data = await response.json();
-            const messageElement = document.getElementById('message');
-
-            if (response.ok) {
-                // Display codes for each giver
-                let codesText = 'Assignments created! Here are your codes (keep them private):\n';
-                data.codes.forEach(item => {
-                    codesText += `${item.giver}: ${item.code}\n`;
-                });
-                messageElement.innerText = codesText;
-
-                // Hide the input fields and the "Add More Names" button
-                document.getElementById('nameInputs').style.display = 'none';
-                document.querySelector('button:nth-of-type(1)').style.display = 'none'; // Hide "Add More Names" button
-                document.querySelector('button:nth-of-type(2)').style.display = 'none'; // Hide "Generate Secret Santa" button
-            } else {
-                messageElement.innerText = data.error;
-            }
-        }
-
-        // Reveal the assignment for a given code
-        async function revealAssignment() {
-            const code = document.getElementById('codeInput').value.trim();
-            const response = await fetch(`/assignment/${code}`);
-            const data = await response.json();
-
-            if (response.ok) {
-                document.getElementById('result').innerText = `🎁 ${data.giver}, you are giving a gift to: ${data.recipient}`;
-            } else {
-                document.getElementById('result').innerText = 'Invalid code. Please try again.';
-            }
-        }
-
-        // Reset all fields and results
-        function resetFields() {
-            // Reset the name input boxes
-            const nameInputs = document.querySelectorAll('.nameBox');
-            nameInputs.forEach(input => input.value = '');
-            document.getElementById('message').innerText = ''; // Clear the message
-            document.getElementById('result').innerText = ''; // Clear the result
-            document.getElementById('codeInput').value = ''; // Clear the code input
-
-            // Show the input fields again
-            document.getElementById('nameInputs').style.display = 'block';
-            document.querySelector('button:nth-of-type(1)').style.display = 'inline-block'; // Show "Add More Names" button
-            document.querySelector('button:nth-of-type(2)').style.display = 'inline-block'; // Show "Generate Secret Santa" button
-        }
-    </script>
+    <header>
+        <h1>🎄 The Lovely's Secret Santa Picker 🎅</h1>
+    </header>
+    <main>
+        <section class="content">
+            <h2>Welcome to the Secret Santa Picker!</h2>
+            <p>This is a fun tool that helps you organize Secret Santa gift exchanges. You can register as a Secret Santa participant or as the Organizer of the event.</p>
+            <p>As the Organizer, you will be able to create pairings and assign participants to one another for gift-giving.</p>
+            <div class="buttons">
+                <a href="/register" class="button">Register</a>
+                <a href="/login" class="button">Login</a>
+                <a href="/organizer" class="button">Organizer Dashboard</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>🎁 Wishing you a Merry Christmas and Happy New Year! 🎄</p>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lovely's Secret Santa Picker - Reveal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🎄 The Lovely's Secret Santa Picker 🎅</h1>
+
+    <div id="reveal">
+        <h2>Retrieve Your Secret Santa</h2>
+        <input type="text" id="codeInput" placeholder="Enter your code">
+        <button onclick="revealAssignment()">Reveal Secret Santa</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Reveal the assignment for a given code
+        async function revealAssignment() {
+            const code = document.getElementById('codeInput').value.trim();
+            const response = await fetch(`/assignment/${code}`);
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById('result').innerText = `🎁 You are giving a gift to: ${data.recipient}`;
+            } else {
+                document.getElementById('result').innerText = 'Invalid code. Please try again.';
+            }
+        }
+    </script>
+</body>
+</html>

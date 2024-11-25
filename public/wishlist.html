@@ -1,0 +1,96 @@
+<!-- public/wishlist.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link rel="stylesheet" href="/style.css"> <!-- Assuming your CSS file is named styles.css -->
+</head>
+<body>
+    <div class="container">
+        <h1>Your Wishlist</h1>
+        <form id="addItemForm">
+            <label for="item">Add Item to Wishlist:</label>
+            <input type="text" id="item" name="item" required>
+            <button type="submit">Add Item</button>
+        </form>
+
+        <div id="wishlistContainer">
+            <h2>Your Current Wishlist</h2>
+            <ul id="wishlistList"></ul>
+        </div>
+
+        <button id="logoutButton">Logout</button>
+    </div>
+
+    <script>
+        // Get wishlist for the logged-in user
+        async function getWishlist() {
+            try {
+                const response = await fetch('/wishlist/view');
+                const data = await response.json();
+
+                if (data.wishlist) {
+                    const wishlistList = document.getElementById('wishlistList');
+                    wishlistList.innerHTML = '';
+                    data.wishlist.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = item;
+                        wishlistList.appendChild(listItem);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching wishlist:', error);
+            }
+        }
+
+        // Handle the form submission to add an item to the wishlist
+        document.getElementById('addItemForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const item = document.getElementById('item').value;
+            const response = await fetch('/wishlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ item })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+
+            // Clear input and refresh the wishlist
+            document.getElementById('item').value = '';
+            getWishlist();
+        });
+
+        // Initial call to populate wishlist
+        getWishlist();
+
+        // Logout Button Click Event
+        document.getElementById('logoutButton').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST',  // Make sure this is POST
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                console.log(result);  // Log the server response
+
+                if (response.ok) {
+                    window.location.href = '/login';  // Redirect to login page after logout
+                } else {
+                    alert(result.error || 'Logout failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error during logout:', error);
+                alert('An error occurred while logging out.');
+            }
+        });
+
+    </script>
+</body>
+</html>

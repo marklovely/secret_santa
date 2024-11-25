@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer - The Lovely's Secret Santa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🎄 Organizer - Secret Santa Pairing 🎅</h1>
+    <button onclick="generatePairings()">Generate and Send Pairings</button>
+    <div id="message"></div>
+
+    <script>
+        async function generatePairings() {
+            const response = await fetch('/generate-pairings', { method: 'POST' });
+            const result = await response.json();
+            document.getElementById('message').innerText = result.message || result.error;
+        }
+    </script>
+</body>
+</html>
